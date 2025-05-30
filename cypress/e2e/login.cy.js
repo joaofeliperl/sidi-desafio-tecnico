@@ -1,14 +1,43 @@
-describe('Tests Suite to Login Page', () => {
+import LoginPage from '../support/pages/LoginPage';
+
+describe('Login Page Tests', () => {
     beforeEach(() => {
+        LoginPage.visit();
+    });
 
-        cy.visit('https://front.serverest.dev/login')
-    })
+    it('Logs in successfully as an employee and redirects to /home', () => {
+        cy.readFile('cypress/fixtures/tempUser.json').then(({ email, password }) => {
+            LoginPage.login(email, password);
+            LoginPage.assertIsEmployee();
+        });
+    });
 
-    it('', () => {
-        cy.get('[data-test=new-todo]').type(`${newItem}{enter}`)
-        cy.get('.todo-list li')
-            .should('have.length', 3)
-            .last()
-            .should('have.text', newItem)
-    })
-})
+    it('Logs in successfully as an admin and redirects to /admin/home', () => {
+        cy.readFile('cypress/fixtures/tempAdmin.json').then(({ email, password }) => {
+            LoginPage.login(email, password);
+            LoginPage.assertIsAdmin();
+        });
+    });
+
+    it('Displays error when email field is empty', () => {
+        LoginPage.fillEmail('');
+        LoginPage.fillPassword('somepassword');
+        LoginPage.submit();
+        cy.url().should('include', '/login');
+    });
+
+    it('Displays error when password field is empty', () => {
+        LoginPage.fillEmail('test@test.com');
+        LoginPage.fillPassword('');
+        LoginPage.submit();
+        cy.url().should('include', '/login');
+    });
+
+    it('Rejects login with incorrect password', () => {
+        cy.readFile('cypress/fixtures/tempUser.json').then(({ email }) => {
+            LoginPage.login(email, 'wrongPassword');
+            cy.url().should('include', '/login');
+        });
+    });
+
+});

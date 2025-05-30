@@ -41,10 +41,19 @@ class SignupPage {
         cy.url().should('include', path);
     }
 
-    fillForm(name, email, password) {
+    checkAdminCheckbox() {
+        cy.get(SIGNUP_LOCATORS.adminCheckbox).check();
+    }
+
+    uncheckAdminCheckbox() {
+        cy.get(SIGNUP_LOCATORS.adminCheckbox).uncheck();
+    }
+
+    fillForm(name, email, password, isAdmin = false) {
         this.fillName(name);
         this.fillEmail(email);
         this.fillPassword(password);
+        isAdmin ? this.checkAdminCheckbox() : this.uncheckAdminCheckbox();
         this.submit();
     }
 }
