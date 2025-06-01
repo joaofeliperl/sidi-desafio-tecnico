@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import SignupPage from '../support/pages/SignupPage';
+import SignupPage from '../../support/pages/SignupPage';
 
 describe('User Signup Validation', () => {
     beforeEach(() => {

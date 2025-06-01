@@ -1,5 +1,5 @@
-import LoginPage from '../support/pages/LoginPage';
-import ProductPage from '../support/pages/ProductPage';
+import LoginPage from '../../support/pages/LoginPage';
+import ProductPage from '../../support/pages/ProductPage';
 import { faker } from '@faker-js/faker';
 
 describe('Product Visibility Between Admin and Employee', () => {

@@ -1,5 +1,5 @@
-import LoginPage from '../support/pages/LoginPage';
-import ProductListPage from '../support/pages/ProductListPage';
+import LoginPage from '../../support/pages/LoginPage';
+import ProductListPage from '../../support/pages/ProductListPage';
 
 describe('Login Page Tests', () => {
     beforeEach(() => {
